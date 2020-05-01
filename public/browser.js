@@ -9,7 +9,7 @@ function itemTemplate(item) {
 }
 
 //CREATE FEATURE
-let createField = document.getElementById("create-field")          //here is where we actually selected the html input field to reusable the variable. This variable can be used always we need access and word with this element (Date on field "Add new item") 
+let createField = document.getElementById("create-field")          
 document.getElementById("create-form").addEventListener("submit", function(e) {
     e.preventDefault()
     axios.post('/create-item', {text: createField.value}).then(function (response){
