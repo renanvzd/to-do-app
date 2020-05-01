@@ -39,14 +39,14 @@ app.get('/', function (req, res) {
           </div>
           <ul class="list-group pb-5">
             ${items.map(function (item) {
-      return `<li class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
+              return `<li class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
               <span class="item-text">${item.text}</span>
               <div>
                 <button data-id="${item._id}" class="edit-me btn btn-secondary btn-sm mr-1">Edit</button>
-                <button class="delete-me btn btn-danger btn-sm">Delete</button>
+                <button data-id="${item._id}" class="delete-me btn btn-danger btn-sm">Delete</button>
               </div>
               </li>`
-    }).join('')}
+            }).join('')}
           </ul>
         </div>
 
@@ -65,6 +65,13 @@ app.post('/create-item', function (req, res) {
 
 app.post('/update-item', function (req, res) {
   db.collection('items').findOneAndUpdate({ _id: new mongodb.ObjectId(req.body.id) }, { $set: { text: req.body.text } }, function () {
+    res.send("Success")
+  })
+})
+
+
+app.post('/delete-item', function(req, res) {
+  db.collection('items').deleteOne({ _id: new mongodb.ObjectId(req.body.id) }, function() {
     res.send("Success")
   })
 })
